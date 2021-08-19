@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,8 +5,14 @@ using DG.Tweening;
 
 public class Level : MonoBehaviour
 {
-	[SerializeField]
-	private UnityEvent<string> onSearchObjectDeterminate;
+	[SerializeField] private GameObject levelItemPrefab;
+
+	[SerializeField] private UnityEvent<string> onSearchObjectDeterminate;
+
+	private string searchObjectName;
+
+	private float itemWidth;
+	private float itemHeight;
 
 	private UnityEvent onLevelComplited = new UnityEvent();
 
@@ -15,14 +20,7 @@ public class Level : MonoBehaviour
 	private List<SearchObjectsData.SearchObject> unusedObjects = new List<SearchObjectsData.SearchObject>();
 	private List<LevelItem> levelItems = new List<LevelItem>();
 
-	[SerializeField]
-	private GameObject levelItemPrefab;
-	private string searchObjectName;
-
-	private float itemWidth;
-	private float itemHeight;
-
-	public void Awake()
+	private void Awake()
 	{
 		SpriteRenderer itemRend = levelItemPrefab.GetComponent<SpriteRenderer>();
 		itemWidth = itemRend.bounds.size.x;
@@ -69,14 +67,14 @@ public class Level : MonoBehaviour
 		levelItems.Add(itemScript);
 	}
 
-	public void LevelCompleted()
+	private void LevelCompleted()
 	{
 		levelItems.ForEach(x => x.SetUsable(false));
 
 		onLevelComplited.Invoke();
 	}
 
-	public void ChooseObjective()
+	private void ChooseObjective()
 	{
 		LevelItem rightObject;
 
@@ -95,7 +93,7 @@ public class Level : MonoBehaviour
 		}		
 	}
 
-	public void Clear()
+	private void Clear()
 	{
 		levelItems.ForEach(x => Destroy(x.gameObject, 0.01f));
 		levelItems.Clear();

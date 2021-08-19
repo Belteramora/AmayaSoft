@@ -6,29 +6,23 @@ using DG.Tweening;
 
 public class GameCore : MonoBehaviour
 {
-	[SerializeField] private List<SearchObjectsData> objectsData;
-
 	[SerializeField] private int countOfLevels;
+
+	[SerializeField] private List<SearchObjectsData> objectsData;
 
 	[SerializeField] private Level level;
 
 	[SerializeField] private CanvasGroup canvasGroup;
-
 	[SerializeField] private Image fade;
 
-	public int currentLevel = 0;
+	private int currentLevel = 0;
 
-	public static GameCore Instance;
-
-	//private Sequence restartSequence;
-
-    // Start is called before the first frame update
     void Start()
     {
-		Instance = this;
 		level.AttachListener(NextLevel);
 		BeginGame();
-    }
+
+	}
 
 	public void ResetGame()
 	{
@@ -45,13 +39,13 @@ public class GameCore : MonoBehaviour
 		restartSequence.Play();
 	}
 
-	public void BeginGame()
+	private void BeginGame()
 	{
 		SearchObjectsData randomData = objectsData[Random.Range(0, objectsData.Count)];
 		level.InitializeLevel(currentLevel, randomData);
 	}
 
-    public void NextLevel()
+    private void NextLevel()
 	{
 		currentLevel++;
 
@@ -69,6 +63,4 @@ public class GameCore : MonoBehaviour
 		canvasGroup.blocksRaycasts = true;
 		canvasGroup.DOFade(1f, 0.5f);
 	}
-
-	
 }

@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using DG.Tweening;
 
 public class LevelItem : MonoBehaviour
 {
 	private TweenCallback onRightObjectClicked;
 
-	[SerializeField]
-	private SpriteRenderer objectRenderer;
-
-	[SerializeField]
-	private ParticleSystem partSys;
+	[SerializeField] private SpriteRenderer objectRenderer;
+	[SerializeField] private ParticleSystem partSys;
 
 	private bool isRight;
 	private bool usable;
@@ -42,7 +36,7 @@ public class LevelItem : MonoBehaviour
 		this.usable = usable;
 	}
 
-	public void OnMouseDown()
+	private void OnMouseDown()
 	{
 		if (usable)
 		{
